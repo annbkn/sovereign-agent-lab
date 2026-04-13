@@ -85,13 +85,20 @@ Would you like to continue with confirm booking?
 
 # Describe what CALM did after the out-of-scope message. Min 20 words.
 CONVERSATION_3_WHAT_HAPPENED = """
-CALM identified that the user's question was completely unrelated to the current booking confirmation flow, explicitly refused to answer the train schedule question, and immediately prompted to see if the user wanted to return to the active flow.
+CALM identified that the user question was completely unrelated to the current
+booking confirmation flow, explicitly refused to answer the train schedule
+question, and immediately prompted to see if the user wanted to return
+to the active flow.
 """
 
 # Compare Rasa CALM's handling of the out-of-scope request to what
 # LangGraph did in Exercise 2 Scenario 3. Min 40 words.
 OUT_OF_SCOPE_COMPARISON = """
-Both architectures correctly refused the request, but they handled it differently. LangGraph reasoned dynamically that it lacked the tools to check train times and generated a helpful but custom refusal message. Rasa CALM used an explicit, pre-written guardrail flow for out-of-scope interactions to forcefully steer the conversation back to its strict, predefined business flow.
+Both architectures correctly refused the request, but they handled it
+differently. LangGraph reasoned dynamically that it lacked the tools to check
+train times and generated a helpful but custom refusal message. Rasa CALM used
+an explicit, pre-written guardrail flow for out-of-scope interactions
+to forcefully steer the conversation back to its predefined business flow.
 """
 
 # ── Task B: Cutoff guard ───────────────────────────────────────────────────
@@ -103,7 +110,10 @@ TASK_B_FILES_CHANGED = ["exercise3_rasa/actions/actions.py"]
 
 # How did you test that it works? Min 20 words.
 TASK_B_HOW_YOU_TESTED = """
-I tested the cutoff guard by modifying the hour condition directly in Python to always trigger (e.g. `if True:`), retrained the model, and ran a conversation. The agent immediately stopped the flow and responded with the escalation message about being unauthorized to speak with anyone else.
+I tested the cutoff guard by modifying the hour condition directly in Python
+to always trigger (e.g. `if True:`), retrained the model, and ran
+a conversation. The agent immediately stopped the flow and responded with
+the escalation message about being unauthorized to speak with anyone else.
 """
 
 # ── CALM vs Old Rasa ───────────────────────────────────────────────────────
@@ -122,7 +132,13 @@ I tested the cutoff guard by modifying the hour condition directly in Python to 
 # Min 30 words.
 
 CALM_VS_OLD_RASA = """
-This simplification trades absolute deterministic control over dialogue paths for extreme flexibility and natural conversational understanding. The LLM handles the messy, unpredictable human inputs (like extracting numbers from text) which saves us from writing brittle regex. However, we still use deterministic Python for the actual business logic (like checking capacity or deposit limits) because those checks must be legally and financially rigorous.
+This simplification trades absolute deterministic control over dialogue paths
+for extreme flexibility and natural conversational understanding.
+The LLM handles the messy, unpredictable human inputs
+(like extracting numbers from text) which saves us from writing brittle regex.
+However, we still use deterministic Python for the actual business logic
+(like checking capacity or deposit limits) because those checks must be legally
+and financially rigorous.
 """
 
 # ── The setup cost ─────────────────────────────────────────────────────────
@@ -136,5 +152,10 @@ This simplification trades absolute deterministic control over dialogue paths fo
 # Min 40 words.
 
 SETUP_COST_VALUE = """
-The setup cost buys you rigid structure and strict adherence to predefined business processes. Unlike LangGraph, the CALM agent cannot hallucinate new tools, invent workflows, or stray outside its flows. It forces the conversation down a designated track. For high-stakes, auditable confirmation calls, this limitation is actually a feature, guaranteeing the agent won't make up terms or go off-script.
+The setup cost buys you rigid structure and strict adherence to predefined
+business processes. Unlike LangGraph, the CALM agent cannot hallucinate
+new tools, invent workflows, or stray outside its flows. It forces
+the conversation down a designated track. For high-stakes, auditable
+confirmation calls, this limitation is actually a feature, guaranteeing
+the agent won't make up terms or go off-script.
 """
