@@ -7,30 +7,30 @@ Fill this in after running exercise4_mcp_client.py.
 # ── Basic results ──────────────────────────────────────────────────────────
 
 # Tool names as shown in "Discovered N tools" output.
-TOOLS_DISCOVERED = []
+TOOLS_DISCOVERED = ["search_venues", "get_venue_details"]
 
-QUERY_1_VENUE_NAME    = "FILL_ME_IN"
-QUERY_1_VENUE_ADDRESS = "FILL_ME_IN"
-QUERY_2_FINAL_ANSWER  = "FILL_ME_IN"
+QUERY_1_VENUE_NAME    = "The Haymarket Vaults"
+QUERY_1_VENUE_ADDRESS = "1 Dalry Road, Edinburgh"
+QUERY_2_FINAL_ANSWER  = "None of the available venues meet the criteria. The Albanach is full, so the agent reported 0 matches for 300 guests with vegan options."
 
 # ── The experiment ─────────────────────────────────────────────────────────
 # Required: modify venue_server.py, rerun, revert.
 
-EX4_EXPERIMENT_DONE = None   # True or False
+EX4_EXPERIMENT_DONE = True   # True or False
 
 # What changed, and which files did or didn't need updating? Min 30 words.
 EX4_EXPERIMENT_RESULT = """
-FILL ME IN
+When I changed The Albanach's status to 'full' in `mcp_venue_server.py`, the agent in Query 1 automatically fell back to the next best match (The Haymarket Vaults) without requiring any code changes in the LangGraph client (`exercise4_mcp_client.py`). The client dynamically read the updated response from the MCP server.
 """
 
 # ── MCP vs hardcoded ───────────────────────────────────────────────────────
 
-LINES_OF_TOOL_CODE_EX2 = 0   # count in exercise2_langgraph.py
-LINES_OF_TOOL_CODE_EX4 = 0   # count in exercise4_mcp_client.py
+LINES_OF_TOOL_CODE_EX2 = 130   # count in exercise2_langgraph.py
+LINES_OF_TOOL_CODE_EX4 = 0     # count in exercise4_mcp_client.py
 
 # What does MCP buy you beyond "the tools are in a separate file"? Min 30 words.
 MCP_VALUE_PROPOSITION = """
-FILL ME IN
+MCP buys language-agnostic tool discovery and execution. The client doesn't need to know the tools' implementation details, parameters, or even what language they are written in. It simply connects to the server, queries the available tools, and the server executes them locally, standardizing the tool interface across multiple agents.
 """
 
 # ── PyNanoClaw architecture — SPECULATION QUESTION ─────────────────────────
@@ -70,11 +70,11 @@ FILL ME IN
 #     ambiguous task.
 
 WEEK_5_ARCHITECTURE = """
-- FILL ME IN
-- FILL ME IN
-- FILL ME IN
-- FILL ME IN
-- FILL ME IN
+- The Autonomous Research Agent runs the open-ended LangGraph loop to explore, search venues, calculate costs, and check weather, acting as the research half of PyNanoClaw.
+- The Shared MCP Server sits between the halves, exposing standardized tools (like web search or venue booking) to both the LangGraph and Rasa agents.
+- The Structured Confirmation Agent runs in Rasa CALM to securely and deterministically enforce business constraints when on a live call with the pub manager, forming the structured half of PyNanoClaw.
+- The Memory Store uses a vector database (Pinecone) to provide RAG capabilities so the autonomous agent can recall previous venue preferences or historical event data.
+- The Handoff Bridge connects the two halves, allowing the autonomous loop to pass its researched context safely into the structured agent's strict dialog flows before the live call begins.
 """
 
 # ── The guiding question ───────────────────────────────────────────────────
@@ -82,5 +82,5 @@ WEEK_5_ARCHITECTURE = """
 # Must reference specific things you observed in your runs. Min 60 words.
 
 GUIDING_QUESTION_ANSWER = """
-FILL ME IN
+The LangGraph agent is perfect for research because it can dynamically pivot, as seen in Task C when it methodically checked every venue until finding an available one. The Rasa CALM agent is essential for the call because it enforces deterministic rules; swapping them feels wrong because you don't want a creative LLM improvising a binding legal deposit limit, nor do you want a rigid state machine struggling to search an open-ended database.
 """

@@ -1,0 +1,26 @@
+#!/usr/bin/expect -f
+
+set timeout 30
+
+# Start the rasa shell command
+spawn bash -c "export PATH=\"\$HOME/.local/bin:\$PATH\" && make ex3-chat"
+
+# Expect the bot to be ready
+expect "Your input ->"
+
+# Happy path
+send "calling to confirm a booking\r"
+expect "Your input ->"
+
+send "160 guests\r"
+expect "Your input ->"
+
+send "about 50 vegan\r"
+expect "Your input ->"
+
+send "£200 deposit\r"
+expect "Your input ->"
+
+send "/stop\r"
+
+expect eof
